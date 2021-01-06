@@ -1,6 +1,6 @@
-package br.com.luizalabs.designrest.veiculos.application.mapper;
+package br.com.luizalabs.designrest.veiculos.application.criar.mapper;
 
-import br.com.luizalabs.designrest.veiculos.application.in.CriarVeiculoInputPort;
+import br.com.luizalabs.designrest.veiculos.application.criar.in.CriarVeiculoInputPort;
 import br.com.luizalabs.designrest.veiculos.domain.Veiculo;
 import br.com.luizalabs.designrest.veiculos.presentation.out.CriarVeiculoOutputAdapter;
 import org.mapstruct.Mapper;
@@ -13,5 +13,5 @@ public interface VeiculoUsecasePortMapper {
 
     Veiculo map(CriarVeiculoInputPort criarVeiculoInputPort);
 
-    CriarVeiculoOutputAdapter mapOutput(Veiculo criar);
+    CriarVeiculoOutputAdapter mapOutput(Veiculo veiculo);
 }

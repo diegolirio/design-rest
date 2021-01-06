@@ -1,38 +1,44 @@
 package br.com.luizalabs.designrest.veiculos.infrastructure;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class VeiculoLegado {
 
     @JsonProperty("ID")
     private Long id;
 
     @JsonProperty("DATALANCE")
-    private String DATALANCE;
+    private String dataLance;
 
     @JsonProperty("LOTE")
-    private String LOTE;
+    private String lote;
 
     @JsonProperty("CODIGOCONTROLE")
-    private String CODIGOCONTROLE;
+    private String codigoControle;
 
     @JsonProperty("MARCA")
-    private String MARCA;
+    private String marca;
 
     @JsonProperty("MODELO")
-    private String MODELO;
+    private String modelo;
 
     @JsonProperty("ANOFABRICACAO")
-    private Integer ANOFABRICACAO;
+    private Integer anoFabricao;
 
     @JsonProperty("ANOMODELO")
-    private Integer ANOMODELO;
+    private Integer anoModelo;
 
     @JsonProperty("VALORLANCE")
-    private Double VALORLANCE;
+    private Double valorLance;
 
     @JsonProperty("USUARIOLANCE")
-    private String USUARIOLANCE;
+    private String usuarioLance;
 }

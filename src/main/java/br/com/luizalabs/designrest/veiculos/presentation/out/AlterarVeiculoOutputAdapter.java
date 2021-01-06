@@ -1,5 +1,7 @@
-package br.com.luizalabs.designrest.veiculos.domain;
+package br.com.luizalabs.designrest.veiculos.presentation.out;
 
+import br.com.luizalabs.designrest.veiculos.application.alterar.out.AlterarVeiculoOutputPort;
+import br.com.luizalabs.designrest.veiculos.application.criar.out.CriarVeiculoOutputPort;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +9,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class Veiculo {
+public class AlterarVeiculoOutputAdapter implements AlterarVeiculoOutputPort {
 
     private Long id;
     private LocalDate dataLance;
@@ -19,5 +21,4 @@ public class Veiculo {
     private Integer anoModelo;
     private Double valorLance;
     private String usuarioLance;
-
 }

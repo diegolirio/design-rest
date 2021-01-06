@@ -1,6 +1,6 @@
 package br.com.luizalabs.designrest.veiculos.presentation.out;
 
-import br.com.luizalabs.designrest.veiculos.application.out.CriarVeiculoOutputPort;
+import br.com.luizalabs.designrest.veiculos.application.criar.out.CriarVeiculoOutputPort;
 import lombok.Getter;
 import lombok.Setter;
 
