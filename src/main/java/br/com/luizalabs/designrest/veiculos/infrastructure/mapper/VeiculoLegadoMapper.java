@@ -8,6 +8,8 @@ import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public abstract class VeiculoLegadoMapper {
@@ -29,7 +31,14 @@ public abstract class VeiculoLegadoMapper {
         veiculo.setLote(veiculoLegado.getLote());
         veiculo.setMarca(veiculoLegado.getMarca());
         veiculo.setId(veiculoLegado.getId());
+        veiculo.setModelo(veiculoLegado.getModelo());
+        veiculo.setValorLance(veiculoLegado.getValorLance());
+        veiculo.setUsuarioLance(veiculoLegado.getUsuarioLance());
         return veiculo;
+    }
+
+    public List<Veiculo> mapDomain(List<VeiculoLegado> veiculosLegado) {
+        return veiculosLegado.stream().map(v -> mapDomain(v)).collect(Collectors.toList());
     }
 
     private VeiculoLegado getVeiculoLegado(Veiculo veiculo) {

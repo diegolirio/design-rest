@@ -20,7 +20,7 @@ public class VeiculoAlterarImpl implements VeiculoAlterar {
     @Override
     public AlterarVeiculoOutputPort execute(AlterarVeiculoInputPort alterarVeiculoInputPort, String id) {
         Veiculo veiculo = mapper.map(alterarVeiculoInputPort);
-        veiculo.setId(Long.parseLong(id));
+        veiculo.setId(id);
         return mapper.mapOutput(gateway.alterar(veiculo));
     }
 }

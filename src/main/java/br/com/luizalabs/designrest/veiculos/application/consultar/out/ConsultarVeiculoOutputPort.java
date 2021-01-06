@@ -1,9 +1,10 @@
-package br.com.luizalabs.designrest.veiculos.application.alterar.in;
+package br.com.luizalabs.designrest.veiculos.application.consultar.out;
 
 import java.time.LocalDate;
 
-public interface AlterarVeiculoInputPort {
+public interface ConsultarVeiculoOutputPort {
 
+    Long getId();
     LocalDate getDataLance();
     String getLote();
     String getCodigoControle();

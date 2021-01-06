@@ -6,16 +6,23 @@ import br.com.luizalabs.designrest.veiculos.infrastructure.mapper.VeiculoLegadoM
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class VeiculoGatewayImpl implements VeiculoGateway {
+
+    public static final String CRIAR = "criar";
+    public static final String ALTERAR = "alterar";
+    public static final String EXCLUIR = "excluir";
+    private static final String CONSULTAR = "consultar";
 
     private final VeiculoClient veiculoClient;
 
     @Override
     public Veiculo criar(Veiculo veiculo) {
         VeiculoLegadoRequest veiculoLegadoRequest = VeiculoLegadoMapper.mapper.map(veiculo);
-        veiculoLegadoRequest.setOperacao("criar");
+        veiculoLegadoRequest.setOperacao(CRIAR);
         VeiculoLegado veiculoLegado = this.veiculoClient.postVeiculo(veiculoLegadoRequest);
         return VeiculoLegadoMapper.mapper.mapDomain(veiculoLegado);
     }
@@ -23,8 +30,28 @@ public class VeiculoGatewayImpl implements VeiculoGateway {
     @Override
     public Veiculo alterar(Veiculo veiculo) {
         VeiculoLegadoRequest veiculoLegadoRequest = VeiculoLegadoMapper.mapper.map(veiculo);
-        veiculoLegadoRequest.setOperacao("alterar");
+        veiculoLegadoRequest.setOperacao(ALTERAR);
         VeiculoLegado veiculoLegado = this.veiculoClient.postVeiculo(veiculoLegadoRequest);
         return VeiculoLegadoMapper.mapper.mapDomain(veiculoLegado);
+    }
+
+    @Override
+    public void excluir(Long id) {
+        VeiculoLegadoRequest veiculoLegadoRequest =
+                VeiculoLegadoRequest.builder()
+                                    .operacao(EXCLUIR)
+                                    .veiculo(VeiculoLegado.builder().id(id).build())
+                                    .build();
+        this.veiculoClient.postVeiculo(veiculoLegadoRequest);
+    }
+
+    @Override
+    public List<Veiculo> consultar() {
+        VeiculoLegadoRequest veiculoLegadoRequest =
+                VeiculoLegadoRequest.builder()
+                        .operacao(CONSULTAR)
+                        .build();
+        List<VeiculoLegado> veiculoLegados = this.veiculoClient.postVeiculoListAll(veiculoLegadoRequest);
+        return VeiculoLegadoMapper.mapper.mapDomain(veiculoLegados);
     }
 }

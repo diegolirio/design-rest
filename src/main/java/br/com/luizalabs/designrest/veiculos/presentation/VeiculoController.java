@@ -2,10 +2,15 @@ package br.com.luizalabs.designrest.veiculos.presentation;
 
 import br.com.luizalabs.designrest.veiculos.application.alterar.VeiculoAlterar;
 import br.com.luizalabs.designrest.veiculos.application.alterar.out.AlterarVeiculoOutputPort;
+import br.com.luizalabs.designrest.veiculos.application.consultar.VeiculoConsultar;
+import br.com.luizalabs.designrest.veiculos.application.consultar.out.ConsultarVeiculoOutputPort;
 import br.com.luizalabs.designrest.veiculos.application.criar.VeiculoCriar;
 import br.com.luizalabs.designrest.veiculos.application.criar.out.CriarVeiculoOutputPort;
+import br.com.luizalabs.designrest.veiculos.application.excluir.VeiculoExcluir;
 import br.com.luizalabs.designrest.veiculos.presentation.in.AlterarVeiculoInputAdapter;
 import br.com.luizalabs.designrest.veiculos.presentation.in.CriarVeiculoInputAdapter;
+import br.com.luizalabs.designrest.veiculos.presentation.in.ExcluirVeiculoInputAdapter;
+import br.com.luizalabs.designrest.veiculos.presentation.out.ConsultarVeiculoOutputAdapter;
 import br.com.luizalabs.designrest.veiculos.presentation.resources.VeiculoResource;
 import br.com.luizalabs.designrest.veiculos.presentation.resources.VeiculoResourceID;
 import lombok.AllArgsConstructor;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import static br.com.luizalabs.designrest.veiculos.presentation.VeiculoController.VEICULOS_PREFIX_URL;
@@ -28,12 +34,14 @@ public class VeiculoController {
 
     private final VeiculoCriar veiculoCriar;
     private final VeiculoAlterar veiculoAlterar;
+    private final VeiculoExcluir veiculoExcluir;
+    private final VeiculoConsultar veiculoConsultar;
 
     /*
             OK - 1. Inclusão de veículos
-            2. Alteração de veículos
-            3. Exclusão de veículos
-            4. Consulta de todos os veículos
+            OK - 2. Alteração de veículos
+            OK - 3. Exclusão de veículos
+            4. Consulta de todos os veículos ---> Data: 11/11/2011 - 12:35
             5. Consulta de veículos por ID
             6. Consulta dos veículos contidos em um lote
             7. Consulta de veículos por marca
@@ -51,7 +59,8 @@ public class VeiculoController {
 
     @GetMapping
     public List<VeiculoResource> getAll() {
-        return List.of(new VeiculoResource());
+        List<ConsultarVeiculoOutputAdapter> listOutput = veiculoConsultar.execute();
+        return mapper.mapOut(listOutput);
     }
 
     @GetMapping("/{id}")
@@ -71,12 +80,16 @@ public class VeiculoController {
     public VeiculoResource update(@NotEmpty(message = "Id Obrigatorio") @PathVariable String id,
                                   @RequestBody VeiculoResource veiculoResource) {
         AlterarVeiculoInputAdapter inputAdapter = mapper.mapInputAlterar(veiculoResource);
-        AlterarVeiculoOutputPort outputPort = veiculoAlterar.execute(inputAdapter, id);
+        AlterarVeiculoOutputPort outputPort = veiculoAlterar.execute(inputAdapter, id); // TODO id deve estar dentro de adapter
         return mapper.mapOutAlterar(outputPort);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void delete(@NotNull(message = "Id Obrigatorio") @PathVariable Long id) { // TODO Long or Str
+        VeiculoResourceID resourceID = new VeiculoResourceID();
+        resourceID.setId(id);
+        ExcluirVeiculoInputAdapter inputAdapter = mapper.mapInputExcluir(resourceID);
+        veiculoExcluir.execute(inputAdapter);
     }
 }

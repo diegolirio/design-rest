@@ -46,7 +46,6 @@ public class GlobalDefaultExceptionHandler {
         Map<String, String> errors = new HashMap<>();
         errors.put(field, message);
         return ResponseEntity.badRequest().body(errors);
-
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -59,7 +58,7 @@ public class GlobalDefaultExceptionHandler {
         errors.put(MESSAGE, ex.getMessage());
         errors.put(TYPE, TYPE_ERROR);
         log.error(ex.getMessage());
-        return ResponseEntity.badRequest().body(errors);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errors);
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
