@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface VeiculoConsultar {
 
-    List<ConsultarVeiculoOutputAdapter> execute();
+    List<ConsultarVeiculoOutputAdapter> execute(Integer offset, Integer limit);
 }

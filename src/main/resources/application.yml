@@ -8,6 +8,10 @@ services:
     legado:
       url:  ${SERVICES_VEICULO_LEGADO_URL:https://dev.apiluiza.com.br/legado/veiculo}
 
+pagination:
+  offset: 0
+  limit: 10
+
 feign:
   client:
     config:
