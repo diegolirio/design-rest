@@ -59,8 +59,8 @@ items:
                       fieldPath: metadata.namespace
                 - name: SPRING_PROFILES_ACTIVE
                   value: develop
-                - name: SERVICES_VEICULO_LEGADO_URL
-                  value: https://dev.apiluiza.com.br/legado/veiculo
+                #- name: SERVICES_VEICULO_LEGADO_URL
+                #  value: https://dev.apiluiza.com.br/legado/veiculo
               image: diegolirio/design-rest:0.0.1-SNAPSHOT
               imagePullPolicy: Always
               name: design-rest
