@@ -30,8 +30,8 @@ jobs:
       -
         name: Publish to DockerHub
         run: |
-          ls target/
           mvn clean package fabric8:build fabric8:push
+          ls target/
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
