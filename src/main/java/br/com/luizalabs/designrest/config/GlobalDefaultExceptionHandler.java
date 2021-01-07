@@ -56,6 +56,7 @@ public class GlobalDefaultExceptionHandler {
         Map<String, String> errors = new HashMap<>();
         errors.put(MESSAGE, ex.getMessage());
         errors.put(TYPE, TYPE_ERROR);
+        ex.printStackTrace();
         log.error(ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errors);
     }
