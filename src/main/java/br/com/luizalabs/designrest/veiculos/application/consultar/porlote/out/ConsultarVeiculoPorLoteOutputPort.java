@@ -1,18 +1,27 @@
-package br.com.luizalabs.designrest.veiculos.application.consultar.out;
+package br.com.luizalabs.designrest.veiculos.application.consultar.porlote.out;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-public interface ConsultarVeiculoOutputPort {
+public interface ConsultarVeiculoPorLoteOutputPort {
 
     Long getId();
-    LocalDate getDataLance();
+
+    LocalDateTime getDataLance();
+
     String getLote();
+
     String getCodigoControle();
+
     String getMarca();
+
     String getModelo();
+
     Integer getAnoFabricacao();
+
     Integer getAnoModelo();
+
     Double getValorLance();
+
     String getUsuarioLance();
 
 }

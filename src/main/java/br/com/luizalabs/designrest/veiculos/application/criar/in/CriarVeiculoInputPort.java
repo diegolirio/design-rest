@@ -1,25 +1,25 @@
 package br.com.luizalabs.designrest.veiculos.application.criar.in;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public interface CriarVeiculoInputPort {
 
-    LocalDate getDataLance(); // "DATALANCE": "04/01/2020 - 21:51",
+    LocalDateTime getDataLance();
 
-    String getLote(); // "LOTE": "0258",
+    String getLote();
 
-    String getCodigoControle(); // "CODIGOCONTROLE": "56254",
+    String getCodigoControle();
 
-    String getMarca();  // "MARCA": "Tesla",
+    String getMarca();
 
-    String getModelo(); //"MODELO": "Model X",
+    String getModelo();
 
-    Integer getAnoFabricacao(); // "ANOFABRICACAO": 2016,
+    Integer getAnoFabricacao();
 
-    Integer getAnoModelo(); // "ANOMODELO": 2016,
+    Integer getAnoModelo();
 
-    Double getValorLance(); //"VALORLANCE": 350000,
+    Double getValorLance();
 
-    String getUsuarioLance(); //"USUARIOLANCE": "-"
+    String getUsuarioLance();
 
 }

@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @JsonDeserialize(using = JacksonCustomSerializer.CustomLocalDateDeserializer.class)
 @JsonSerialize(using = JacksonCustomSerializer.CustomLocalDateSerializer.class)
-public @interface JacksonLocalDate {
+public @interface JacksonLocalDateTime {
 
 }

@@ -6,13 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class AlterarVeiculoOutputAdapter implements AlterarVeiculoOutputPort {
 
     private Long id;
-    private LocalDate dataLance;
+    private LocalDateTime dataLance;
     private String lote;
     private String codigoControle;
     private String marca;

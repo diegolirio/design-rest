@@ -54,4 +54,18 @@ public class VeiculoGatewayImpl implements VeiculoGateway {
         List<VeiculoLegado> veiculoLegados = this.veiculoClient.postVeiculoListAll(veiculoLegadoRequest);
         return VeiculoLegadoMapper.mapper.mapDomain(veiculoLegados);
     }
+
+    @Override
+    public Veiculo consultarPorId(Long id) {
+        VeiculoLegadoRequest veiculoLegadoRequest =
+                VeiculoLegadoRequest.builder()
+                        .operacao(CONSULTAR)
+                        .build();
+        List<VeiculoLegado> veiculoLegados = this.veiculoClient.postVeiculoListAll(veiculoLegadoRequest);
+        VeiculoLegado veiculoLegado =
+                veiculoLegados.stream()
+                              .filter(v -> v.getId() != null && v.getId().equals(id))
+                              .findFirst().get();
+        return VeiculoLegadoMapper.mapper.mapDomain(veiculoLegado);
+    }
 }

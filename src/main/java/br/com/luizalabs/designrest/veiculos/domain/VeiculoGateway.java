@@ -11,4 +11,6 @@ public interface VeiculoGateway {
     void excluir(Long id);
 
     List<Veiculo> consultar();
+
+    Veiculo consultarPorId(Long id);
 }

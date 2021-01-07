@@ -1,6 +1,7 @@
 package br.com.luizalabs.designrest.veiculos.presentation.resources;
 
 import br.com.luizalabs.designrest.config.JacksonCustomSerializer;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
@@ -9,16 +10,19 @@ import lombok.Setter;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class VeiculoResource {
+
+    private Long id;
 
     @NotNull
     @JsonDeserialize(using = JacksonCustomSerializer.CustomLocalDateDeserializer.class)
     @JsonSerialize(using = JacksonCustomSerializer.CustomLocalDateSerializer.class)
-    private LocalDate dataLance;
+    private LocalDateTime dataLance;
 
     @NotNull
     private String lote;

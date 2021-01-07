@@ -4,13 +4,13 @@ import br.com.luizalabs.designrest.veiculos.application.criar.in.CriarVeiculoInp
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class CriarVeiculoInputAdapter implements CriarVeiculoInputPort {
 
-    private LocalDate dataLance;
+    private LocalDateTime dataLance;
     private String lote;
     private String codigoControle;
     private String marca;

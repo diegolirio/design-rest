@@ -3,14 +3,14 @@ package br.com.luizalabs.designrest.veiculos.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class Veiculo {
 
     private Long id;
-    private LocalDate dataLance;
+    private LocalDateTime dataLance;
     private String lote;
     private String codigoControle;
     private String marca;

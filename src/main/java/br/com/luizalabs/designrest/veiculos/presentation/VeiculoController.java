@@ -2,14 +2,25 @@ package br.com.luizalabs.designrest.veiculos.presentation;
 
 import br.com.luizalabs.designrest.veiculos.application.alterar.VeiculoAlterar;
 import br.com.luizalabs.designrest.veiculos.application.alterar.out.AlterarVeiculoOutputPort;
-import br.com.luizalabs.designrest.veiculos.application.consultar.VeiculoConsultar;
-import br.com.luizalabs.designrest.veiculos.application.consultar.out.ConsultarVeiculoOutputPort;
+import br.com.luizalabs.designrest.veiculos.application.consultar.todos.VeiculoConsultar;
+import br.com.luizalabs.designrest.veiculos.application.consultar.porano.VeiculoConsultarPorAnoFabricacaoAnoModelo;
+import br.com.luizalabs.designrest.veiculos.application.consultar.porano.in.ConsultarVeiculoPorAnoFabricacaoAnoModeloInputPort;
+import br.com.luizalabs.designrest.veiculos.application.consultar.poranofabricacao.VeiculoConsultarPorAnoFabricacao;
+import br.com.luizalabs.designrest.veiculos.application.consultar.poranofabricacao.in.ConsultarVeiculoPorAnoFabricacaoInputPort;
+import br.com.luizalabs.designrest.veiculos.application.consultar.porid.VeiculoConsultarPorId;
+import br.com.luizalabs.designrest.veiculos.application.consultar.porid.in.ConsultarVeiculoPorIdInputPort;
+import br.com.luizalabs.designrest.veiculos.application.consultar.porid.out.ConsultarVeiculoPorIdOutputPort;
+import br.com.luizalabs.designrest.veiculos.application.consultar.porlote.VeiculoConsultarPorLote;
+import br.com.luizalabs.designrest.veiculos.application.consultar.porlote.in.ConsultarVeiculoPorLoteInputPort;
+import br.com.luizalabs.designrest.veiculos.application.consultar.pormarca.VeiculoConsultarPorMarca;
+import br.com.luizalabs.designrest.veiculos.application.consultar.pormarca.in.ConsultarVeiculoPorMarcaInputPort;
+import br.com.luizalabs.designrest.veiculos.application.consultar.pormodelo.VeiculoConsultarPorModelo;
+import br.com.luizalabs.designrest.veiculos.application.consultar.pormodelo.in.ConsultarVeiculoPorModeloInputPort;
 import br.com.luizalabs.designrest.veiculos.application.criar.VeiculoCriar;
 import br.com.luizalabs.designrest.veiculos.application.criar.out.CriarVeiculoOutputPort;
 import br.com.luizalabs.designrest.veiculos.application.excluir.VeiculoExcluir;
-import br.com.luizalabs.designrest.veiculos.presentation.in.AlterarVeiculoInputAdapter;
-import br.com.luizalabs.designrest.veiculos.presentation.in.CriarVeiculoInputAdapter;
-import br.com.luizalabs.designrest.veiculos.presentation.in.ExcluirVeiculoInputAdapter;
+import br.com.luizalabs.designrest.veiculos.application.excluir.in.ExcluirVeiculoInputPort;
+import br.com.luizalabs.designrest.veiculos.presentation.in.*;
 import br.com.luizalabs.designrest.veiculos.presentation.out.ConsultarVeiculoOutputAdapter;
 import br.com.luizalabs.designrest.veiculos.presentation.resources.VeiculoResource;
 import br.com.luizalabs.designrest.veiculos.presentation.resources.VeiculoResourceID;
@@ -36,36 +47,63 @@ public class VeiculoController {
     private final VeiculoAlterar veiculoAlterar;
     private final VeiculoExcluir veiculoExcluir;
     private final VeiculoConsultar veiculoConsultar;
-
-    /*
-            OK - 1. Inclusão de veículos
-            OK - 2. Alteração de veículos
-            OK - 3. Exclusão de veículos
-            4. Consulta de todos os veículos ---> Data: 11/11/2011 - 12:35
-            5. Consulta de veículos por ID
-            6. Consulta dos veículos contidos em um lote
-            7. Consulta de veículos por marca
-            8. Consulta de veículos pelas letras iniciais do modelo
-            9. Consulta de veículos pelo ano de fabricação e pelo ano do modelo (campos combinados) (*). Ex: veículos com ano de fabricação em 2015 e ano modelo 2016.
-            10. Consulta de veículos por faixa de ano de fabricação (*). Ex: veículos fabricados entre 2013 e 2016.
-
-            // TODO 4 busca todos,
-            //    6 busca por lote,
-            //    7 busca por marca,
-            //    8 busca por iniciais do modelo,
-            //    9 busca veiculos por anoFabr/AnoModelo,
-            //    10 busca between ano de fabr
-     */
+    private final VeiculoConsultarPorId veiculoConsultarPorId;
+    private final VeiculoConsultarPorLote veiculoConsultarPorLote;
+    private final VeiculoConsultarPorMarca veiculoConsultarPorMarca;
+    private final VeiculoConsultarPorModelo veiculoConsultarPorModelo;
+    private final VeiculoConsultarPorAnoFabricacaoAnoModelo veiculoConsultarPorAnoFabricacaoAnoModelo;
+    private final VeiculoConsultarPorAnoFabricacao veiculoConsultarPorAnoFabricacao;
 
     @GetMapping
-    public List<VeiculoResource> getAll() {
+    public List<VeiculoResource> consultarTodos() {
         List<ConsultarVeiculoOutputAdapter> listOutput = veiculoConsultar.execute();
         return mapper.mapOut(listOutput);
     }
 
+    @GetMapping("/lote/{lote}")
+    public List<VeiculoResource> consultarPorLote(@PathVariable("lote") String lote) {
+        ConsultarVeiculoPorLoteInputPort inputPort = new ConsultarVeiculoPorLoteInputAdapter(lote);
+        List<ConsultarVeiculoOutputAdapter> output = veiculoConsultarPorLote.execute(inputPort);
+        return mapper.mapOut(output);
+    }
+
+    @GetMapping("/modelo")
+    public List<VeiculoResource> consultarPorIniciaisModelo(@RequestParam("q") String q) {
+        ConsultarVeiculoPorModeloInputPort inputPort = new ConsultarVeiculoPorModeloInputAdapter(q);
+        List<ConsultarVeiculoOutputAdapter> output = veiculoConsultarPorModelo.execute(inputPort);
+        return mapper.mapOut(output);
+    }
+
+    @GetMapping("/ano")
+    public List<VeiculoResource> consultarPorAnoFabriacaoModelo(@RequestParam("fabricacao") Integer fabricacao,
+                                                                @RequestParam("modelo") Integer modelo) {
+        ConsultarVeiculoPorAnoFabricacaoAnoModeloInputPort inputPort =
+                new ConsultarVeiculoPorAnoFabricacaoAnoModeloInputAdapter(fabricacao, modelo);
+        List<ConsultarVeiculoOutputAdapter> output = veiculoConsultarPorAnoFabricacaoAnoModelo.execute(inputPort);
+        return mapper.mapOut(output);
+    }
+
+    @GetMapping("/ano-fabricacao")
+    public List<VeiculoResource> consultarPorAnoFabriacaoEntre(@RequestParam("inicio") Integer inicio,
+                                                               @RequestParam("fim") Integer fim) {
+        ConsultarVeiculoPorAnoFabricacaoInputPort inputPort =
+                new ConsultarVeiculoPorAnoFabricacaoInputAdapter(inicio, fim);
+        List<ConsultarVeiculoOutputAdapter> output = veiculoConsultarPorAnoFabricacao.execute(inputPort);
+        return mapper.mapOut(output);
+    }
+
+    @GetMapping("/marca/{marca}")
+    public List<VeiculoResource> consultarPorMarca(@PathVariable("marca") String marca) {
+        ConsultarVeiculoPorMarcaInputPort inputPort = new ConsultarVeiculoPorMarcaInputAdapter(marca);
+        List<ConsultarVeiculoOutputAdapter> output = veiculoConsultarPorMarca.execute(inputPort);
+        return mapper.mapOut(output);
+    }
+
     @GetMapping("/{id}")
     public VeiculoResource getById(@PathVariable Long id) {
-        return new VeiculoResource();
+        ConsultarVeiculoPorIdInputPort inputPort = new ConsultarVeiculoPorIdInputAdapter(id);
+        ConsultarVeiculoPorIdOutputPort outputPort = veiculoConsultarPorId.execute(inputPort);
+        return mapper.mapOut(outputPort);
     }
 
     @PostMapping
@@ -80,16 +118,16 @@ public class VeiculoController {
     public VeiculoResource update(@NotEmpty(message = "Id Obrigatorio") @PathVariable String id,
                                   @RequestBody VeiculoResource veiculoResource) {
         AlterarVeiculoInputAdapter inputAdapter = mapper.mapInputAlterar(veiculoResource);
-        AlterarVeiculoOutputPort outputPort = veiculoAlterar.execute(inputAdapter, id); // TODO id deve estar dentro de adapter
+        AlterarVeiculoOutputPort outputPort = veiculoAlterar.execute(inputAdapter, id);
         return mapper.mapOutAlterar(outputPort);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void delete(@NotNull(message = "Id Obrigatorio") @PathVariable Long id) { // TODO Long or Str
-        VeiculoResourceID resourceID = new VeiculoResourceID();
-        resourceID.setId(id);
-        ExcluirVeiculoInputAdapter inputAdapter = mapper.mapInputExcluir(resourceID);
+    public void delete(@NotNull(message = "Id Obrigatorio") @PathVariable Long id) {
+        ExcluirVeiculoInputPort inputPort = new ExcluirVeiculoInputAdapter(id);
+        ExcluirVeiculoInputAdapter inputAdapter = mapper.mapInputExcluir(inputPort);
         veiculoExcluir.execute(inputAdapter);
     }
+
 }

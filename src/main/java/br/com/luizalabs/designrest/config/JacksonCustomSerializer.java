@@ -10,14 +10,14 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class JacksonCustomSerializer {
 
-    private static final String DATE_FORMTAER = "dd/MM/yyyy";
+    public static final String DATE_FORMTAER = "dd/MM/yyyy - HH:mm";
 
-    public static class CustomLocalDateDeserializer extends StdDeserializer<LocalDate> {
+    public static class CustomLocalDateDeserializer extends StdDeserializer<LocalDateTime> {
 
         public CustomLocalDateDeserializer() {
             this(null);
@@ -26,20 +26,21 @@ public class JacksonCustomSerializer {
             super(vc);
         }
         @Override
-        public LocalDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            return LocalDate.parse(jsonParser.readValueAs(String.class), DateTimeFormatter.ofPattern(DATE_FORMTAER));
+        public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMTAER);
+            return LocalDateTime.parse(jsonParser.readValueAs(String.class), formatter);
         }
     }
 
-    public static class CustomLocalDateSerializer extends StdSerializer<LocalDate> {
+    public static class CustomLocalDateSerializer extends StdSerializer<LocalDateTime> {
         protected CustomLocalDateSerializer() {
             this(null);
         }
-        protected CustomLocalDateSerializer(Class<LocalDate> t) {
+        protected CustomLocalDateSerializer(Class<LocalDateTime> t) {
             super(t);
         }
         @Override
-        public void serialize(LocalDate value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(LocalDateTime value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             jsonGenerator.writeString(value.format(DateTimeFormatter.ofPattern(DATE_FORMTAER)));
         }
     }

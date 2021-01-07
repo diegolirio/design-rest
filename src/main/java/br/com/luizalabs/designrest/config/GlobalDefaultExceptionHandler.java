@@ -2,7 +2,6 @@ package br.com.luizalabs.designrest.config;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.ap.shaded.freemarker.template.utility.DateUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -28,7 +27,7 @@ public class GlobalDefaultExceptionHandler {
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(value={MethodArgumentNotValidException.class})
+    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors()
@@ -51,8 +50,8 @@ public class GlobalDefaultExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(Exception ex) {
-        if(ex.getCause() instanceof JsonMappingException && ex.getCause().getCause() instanceof DateTimeParseException) {
-            return handleValidationBadRequestExceptions("dataLance", "deve estar no formato dd/MM/yyyy -> Ex: 01/01/2021");
+        if (ex.getCause() instanceof JsonMappingException && ex.getCause().getCause() instanceof DateTimeParseException) {
+            return handleValidationBadRequestExceptions("dataLance", String.format("deve estar no formato %s", JacksonCustomSerializer.DATE_FORMTAER));
         }
         Map<String, String> errors = new HashMap<>();
         errors.put(MESSAGE, ex.getMessage());
