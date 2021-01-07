@@ -13,5 +13,6 @@ import lombok.Setter;
 public class ConsultarVeiculoPorModeloInputAdapter implements ConsultarVeiculoPorModeloInputPort {
 
     private String modelo;
-
+    private Integer offset;
+    private Integer limit;
 }

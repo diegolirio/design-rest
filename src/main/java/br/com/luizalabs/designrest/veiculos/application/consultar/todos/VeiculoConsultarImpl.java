@@ -19,8 +19,9 @@ public class VeiculoConsultarImpl implements VeiculoConsultar {
     }
 
     @Override
-    public List<ConsultarVeiculoOutputAdapter> execute() {
+    public List<ConsultarVeiculoOutputAdapter> execute(Integer offset, Integer limit) {
         List<Veiculo> veiculos = this.gateway.consultar();
-        return mapper.mapOutput(veiculos);
+        List<Veiculo> veiculosSubList = Veiculo.paginaSubLista(veiculos, offset, limit);
+        return mapper.mapOutput(veiculosSubList);
     }
 }

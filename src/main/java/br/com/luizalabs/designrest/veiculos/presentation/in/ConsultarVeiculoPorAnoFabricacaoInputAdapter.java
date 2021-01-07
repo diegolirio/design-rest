@@ -14,5 +14,7 @@ public class ConsultarVeiculoPorAnoFabricacaoInputAdapter implements ConsultarVe
 
     private Integer anoInicio;
     private Integer anoFim;
+    private Integer offset;
+    private Integer limit;
 
 }
