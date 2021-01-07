@@ -1,8 +1,9 @@
 spring:
+  profiles: default, develop
   application:
     name: design-rest
 
 services:
   veiculo:
     legado:
-      url:  https://dev.apiluiza.com.br/legado/veiculo
+      url:  ${SERVICES_VEICULO_LEGADO_URL:https://dev.apiluiza.com.br/legado/veiculo}
