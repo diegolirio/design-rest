@@ -7,3 +7,10 @@ services:
   veiculo:
     legado:
       url:  ${SERVICES_VEICULO_LEGADO_URL:https://dev.apiluiza.com.br/legado/veiculo}
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 160000000
+        readTimeout: 160000000

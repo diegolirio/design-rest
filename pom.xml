@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.luizalabs</groupId>
 	<artifactId>design-rest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>design-rest</name>
 	<description>Design RESTful API</description>
 
@@ -110,9 +110,9 @@
 						</image>
 					</images>
 					<resources>
-						<env>
-							<SPRING_PROFILES_ACTIVE>${enviroment}</SPRING_PROFILES_ACTIVE>
-						</env>
+<!--						<env>-->
+<!--							<SPRING_PROFILES_ACTIVE>${enviroment}</SPRING_PROFILES_ACTIVE>-->
+<!--						</env>-->
 						<services>
 							<service>
 								<name>${project.artifactId}</name>

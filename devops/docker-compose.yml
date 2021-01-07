@@ -1,0 +1,7 @@
+version: '3'
+services:
+  designrest:
+    image: diegolirio/design-rest:0.0.2-SNAPSHOT
+    container_name: designrest
+    ports:
+      - 8085:8080
