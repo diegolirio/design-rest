@@ -69,26 +69,32 @@ public class VeiculoController {
     }
 
     @GetMapping("/modelo")
-    public List<VeiculoResource> consultarPorIniciaisModelo(@RequestParam("q") String q) {
-        ConsultarVeiculoPorModeloInputPort inputPort = new ConsultarVeiculoPorModeloInputAdapter(q);
+    public List<VeiculoResource> consultarPorIniciaisModelo(@RequestParam("q") String q,
+                                                            @RequestParam(value = "offset", defaultValue = "${pagination.offset}") Integer offset,
+                                                            @RequestParam(value = "limit", defaultValue = "${pagination.limit}") Integer limit                                                            ) {
+        ConsultarVeiculoPorModeloInputPort inputPort = new ConsultarVeiculoPorModeloInputAdapter(q, offset, limit);
         List<ConsultarVeiculoOutputAdapter> output = veiculoConsultarPorModelo.execute(inputPort);
         return mapper.mapOut(output);
     }
 
     @GetMapping("/fabricacao/{fabricacao}/modelo/{modelo}")
     public List<VeiculoResource> consultarPorAnoFabriacaoModelo(@PathVariable("fabricacao") Integer fabricacao,
-                                                                @PathVariable("modelo") Integer modelo) {
+                                                                @PathVariable("modelo") Integer modelo,
+                                                                @RequestParam(value = "offset", defaultValue = "${pagination.offset}") Integer offset,
+                                                                @RequestParam(value = "limit", defaultValue = "${pagination.limit}") Integer limit) {
         ConsultarVeiculoPorAnoFabricacaoAnoModeloInputPort inputPort =
-                new ConsultarVeiculoPorAnoFabricacaoAnoModeloInputAdapter(fabricacao, modelo);
+                new ConsultarVeiculoPorAnoFabricacaoAnoModeloInputAdapter(fabricacao, modelo, offset, limit);
         List<ConsultarVeiculoOutputAdapter> output = veiculoConsultarPorAnoFabricacaoAnoModelo.execute(inputPort);
         return mapper.mapOut(output);
     }
 
     @GetMapping("/anoFabricacao")
     public List<VeiculoResource> consultarPorAnoFabriacaoEntre(@RequestParam("inicio") Integer inicio,
-                                                               @RequestParam("fim") Integer fim) {
+                                                               @RequestParam("fim") Integer fim,
+                                                               @RequestParam(value = "offset", defaultValue = "${pagination.offset}") Integer offset,
+                                                               @RequestParam(value = "limit", defaultValue = "${pagination.limit}") Integer limit) {
         ConsultarVeiculoPorAnoFabricacaoInputPort inputPort =
-                new ConsultarVeiculoPorAnoFabricacaoInputAdapter(inicio, fim);
+                new ConsultarVeiculoPorAnoFabricacaoInputAdapter(inicio, fim, offset, limit);
         List<ConsultarVeiculoOutputAdapter> output = veiculoConsultarPorAnoFabricacao.execute(inputPort);
         return mapper.mapOut(output);
     }

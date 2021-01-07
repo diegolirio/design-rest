@@ -27,6 +27,7 @@ public class VeiculoConsultarPorModeloImpl implements VeiculoConsultarPorModelo 
                 veiculos.stream()
                         .filter(v -> v.getModelo() != null && v.getModelo().toLowerCase().startsWith(inputPort.getModelo().toLowerCase()))
                         .collect(Collectors.toList());
-        return mapper.mapOutput(veiculosFilter);
+        List<Veiculo> veiculosPag = Veiculo.paginaSubLista(veiculosFilter, inputPort.getOffset(), inputPort.getLimit());
+        return mapper.mapOutput(veiculosPag);
     }
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,6 +32,13 @@ public class Veiculo {
         } catch (Exception ex) {
             throw new RuntimeException("ID deve ser numerico");
         }
+    }
+
+    public static List<Veiculo> paginaSubLista(List<Veiculo> veiculos, Integer offset, Integer limit) {
+        if (veiculos.size() - offset >= limit) {
+            return veiculos.subList(offset*limit, (offset+1) * limit);
+        }
+        return veiculos.subList(offset, veiculos.size());
     }
 
 }

@@ -88,7 +88,7 @@ curl --request GET \
 8. Consulta de veículos pelas letras iniciais do modelo
 ```shell
 curl --request GET \
-  --url 'http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos/ano?fabricacao=2007&modelo=2008'
+  --url 'http://localhost:8080/v1/veiculos/modelo?q=C3&limit=3&offset=0'
 ```
 ---
 9. Consulta de veículos pelo ano de fabricação e pelo ano do modelo (campos combinados) (*). Ex: veículos com ano de fabricação em 2015 e ano modelo 
