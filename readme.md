@@ -7,7 +7,7 @@
 
 ### API's
 
-`Swagger:` http://ec2-54-88-181-191.compute-1.amazonaws.com:30081/swagger-ui.html#/veiculo-controller
+`Swagger:` http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/swagger-ui.html#/veiculo-controller
 
 ---
 
@@ -15,7 +15,7 @@
 
 ```shell
 curl --request POST \
-  --url http://ec2-54-88-181-191.compute-1.amazonaws.com:30081/v1/veiculos \
+  --url http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos \
   --header 'Content-Type: application/json' \
   --data '  {
     "dataLance": "21/08/2020 - 10:24",
@@ -35,7 +35,7 @@ curl --request POST \
 
 ```shell
 curl --request PUT \
-  --url http://ec2-54-88-181-191.compute-1.amazonaws.com:30081/v1/veiculos/52 \
+  --url http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos/52 \
   --header 'Content-Type: application/json' \
   --data '  {
     "dataLance": "11/12/2020 - 21:30",
@@ -56,60 +56,58 @@ curl --request PUT \
 
 ```shell
 curl --request DELETE \
-  --url http://ec2-54-88-181-191.compute-1.amazonaws.com:30081/v1/veiculos/764
+  --url http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos/764
 ```
 ---
 4. Busca Todos
 
 ```shell
 curl --request GET \
-  --url http://ec2-54-88-181-191.compute-1.amazonaws.com:30081/v1/veiculos
+  --url http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos
 ```
 ---
 5. Consulta de veículos por ID
 
 ```shell
 curl --request GET \
-  --url http://ec2-54-88-181-191.compute-1.amazonaws.com:30081/v1/veiculos/764
+  --url http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos/764
 ```
 ---
 6. Consulta dos veículos contidos em um lote
 ```shell
 curl --request GET \
-  --url http://ec2-54-88-181-191.compute-1.amazonaws.com:30081/v1/veiculos/lote/0196
+  --url http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos/lote/0196
 ```
 ---
 7. Consulta de veículos por marca
 ```shell
 curl --request GET \
-  --url http://ec2-54-88-181-191.compute-1.amazonaws.com:30081/v1/veiculos/marca/CHEVROLET
+  --url http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos/marca/CHEVROLET
 ```
 ---
 8. Consulta de veículos pelas letras iniciais do modelo
 ```shell
 curl --request GET \
-  --url 'http://ec2-54-88-181-191.compute-1.amazonaws.com:30081/v1/veiculos/ano?fabricacao=2007&modelo=2008'
+  --url 'http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos/ano?fabricacao=2007&modelo=2008'
 ```
 ---
 9. Consulta de veículos pelo ano de fabricação e pelo ano do modelo (campos combinados) (*). Ex: veículos com ano de fabricação em 2015 e ano modelo 
 ```shell
 curl --request GET \
-  --url 'http://ec2-54-88-181-191.compute-1.amazonaws.com:30081/v1/veiculos/ano?fabricacao=2007&modelo=2008'
+  --url 'http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos/ano?fabricacao=2007&modelo=2008'
 ```
 ---
 10. Consulta de veículos por faixa de ano de fabricação (*). Ex: veículos fabricados entre 2013 e 2016.
 ```shell
 curl --request GET \
-  --url 'http://ec2-54-88-181-191.compute-1.amazonaws.com:30081/v1/veiculos/ano-fabricacao?inicio=2009&fim=2009'
+  --url 'http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos/ano-fabricacao?inicio=2009&fim=2009'
 ```
 ---
 
 ### Pipeline
 
-https://github.com/diegolirio/design-rest/actions   
-   
-Flow ==> ...
-
-#### Image Docker
-
-https://hub.docker.com/r/diegolirio/design-rest   
+`Github-actions:` https://github.com/diegolirio/design-rest/actions   
+`Steps:` [./github/workflows/pipeline.yml](./github/workflows/pipeline.yml)
+`Image:` https://hub.docker.com/r/diegolirio/design-rest   
+`HealthCheck:` http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/actuator/health
+`API:` http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/swagger-ui.html

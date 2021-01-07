@@ -110,9 +110,9 @@
 						</image>
 					</images>
 					<resources>
-						<env>
-							<SPRING_PROFILES_ACTIVE>${enviroment}</SPRING_PROFILES_ACTIVE>
-						</env>
+<!--						<env>-->
+<!--							<SPRING_PROFILES_ACTIVE>${enviroment}</SPRING_PROFILES_ACTIVE>-->
+<!--						</env>-->
 						<services>
 							<service>
 								<name>${project.artifactId}</name>
