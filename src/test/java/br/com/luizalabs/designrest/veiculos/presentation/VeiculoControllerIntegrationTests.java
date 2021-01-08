@@ -62,9 +62,9 @@ public class VeiculoControllerIntegrationTests {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id", greaterThan(0)))
+                .andExpect(jsonPath("$.links[0].href", notNullValue()))
                 .andExpect(jsonPath("$[0].lote", is(lote)))
-                .andExpect(jsonPath("$[1].id", greaterThan(0)))
+                .andExpect(jsonPath("$.links[0].href", notNullValue()))
                 .andExpect(jsonPath("$[1].lote", is(lote)));
     }
 
@@ -136,7 +136,7 @@ public class VeiculoControllerIntegrationTests {
     @Test
     public void criarTest() throws Exception {
         String json = new ObjectMapper().writeValueAsString(
-                Fixture.from(VeiculoResource.class).gimme(VeiculoFixtureTemplate.LABEL_VEICULO_COM_ID));
+                Fixture.from(VeiculoResource.class).gimme(VeiculoFixtureTemplate.LABEL_VEICULO_SEM_ID));
 
         mvc.perform(post(VeiculoController.VEICULOS_PREFIX_URL)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -161,7 +161,7 @@ public class VeiculoControllerIntegrationTests {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id", equalTo(id)));
+                .andExpect(jsonPath("$.links[0].href", notNullValue()));
     }
 
     @Test
