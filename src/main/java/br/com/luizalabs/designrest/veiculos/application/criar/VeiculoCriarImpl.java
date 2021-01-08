@@ -4,6 +4,7 @@ import br.com.luizalabs.designrest.veiculos.application.criar.in.CriarVeiculoInp
 import br.com.luizalabs.designrest.veiculos.application.criar.out.CriarVeiculoOutputPort;
 import br.com.luizalabs.designrest.veiculos.domain.Veiculo;
 import br.com.luizalabs.designrest.veiculos.domain.VeiculoGateway;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import static br.com.luizalabs.designrest.veiculos.application.criar.mapper.VeiculoUsecasePortMapper.mapper;
@@ -15,6 +16,7 @@ public class VeiculoCriarImpl implements VeiculoCriar {
 
     public VeiculoCriarImpl(VeiculoGateway gateway) { this.gateway = gateway; }
 
+    @SneakyThrows
     @Override
     public CriarVeiculoOutputPort execute(CriarVeiculoInputPort criarVeiculoInputPort) {
         Veiculo veiculo = mapper.map(criarVeiculoInputPort);

@@ -1,5 +1,6 @@
 package br.com.luizalabs.designrest.veiculos.infrastructure.client;
 
+import br.com.luizalabs.designrest.veiculos.exceptions.NotFoundException;
 import br.com.luizalabs.designrest.veiculos.infrastructure.VeiculoLegado;
 import br.com.luizalabs.designrest.veiculos.infrastructure.VeiculoLegadoRequest;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Objects;
 
 @Primary
 @Service("veiculoClientImpl")
@@ -21,10 +23,13 @@ public class VeiculoClientImpl implements VeiculoClient {
     private String url;
 
     @Override
-    public VeiculoLegado postVeiculo(VeiculoLegadoRequest request) {
+    public VeiculoLegado postVeiculo(VeiculoLegadoRequest request) throws NotFoundException {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<VeiculoLegadoRequest> requestEnetity = new HttpEntity<>(request);
         ResponseEntity<VeiculoLegado> resp = restTemplate.postForEntity(url, requestEnetity, VeiculoLegado.class);
+        if(resp.getBody() == null || Objects.isNull(resp.getBody().getId())) {
+            throw new NotFoundException("Veiculo nao encontrado!");
+        }
         return resp.getBody();
     }
 

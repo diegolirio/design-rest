@@ -35,10 +35,14 @@ public class Veiculo {
     }
 
     public static List<Veiculo> paginaSubLista(List<Veiculo> veiculos, Integer page, Integer size) {
-        if (veiculos.size() - page >= size) {
-            return veiculos.subList(page*size, (page+1) * size);
+        try {
+            if (veiculos.size() - page >= size) {
+                return veiculos.subList(page*size, (page+1) * size);
+            }
+            return veiculos.subList(page, veiculos.size());
+        } catch (IllegalArgumentException e) {
+            return List.of();
         }
-        return veiculos.subList(page, veiculos.size());
     }
 
 }
