@@ -24,6 +24,7 @@ import br.com.luizalabs.designrest.veiculos.presentation.in.*;
 import br.com.luizalabs.designrest.veiculos.presentation.out.ConsultarVeiculoOutputAdapter;
 import br.com.luizalabs.designrest.veiculos.presentation.resources.VeiculoResource;
 import br.com.luizalabs.designrest.veiculos.presentation.resources.VeiculoResourceID;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import static br.com.luizalabs.designrest.veiculos.presentation.VeiculoController.VEICULOS_PREFIX_URL;
-import static br.com.luizalabs.designrest.veiculos.presentation.mapper.VeiculoMapper.mapper;
+import static br.com.luizalabs.designrest.veiculos.presentation.mapper.VeiculoMapper.INSTANCE;
 
 @AllArgsConstructor
 @RestController
@@ -55,85 +56,86 @@ public class VeiculoController {
     private final VeiculoConsultarPorAnoFabricacao veiculoConsultarPorAnoFabricacao;
 
     @GetMapping
-    public List<VeiculoResource> consultarTodos(@RequestParam(value = "offset", defaultValue = "${pagination.offset}") Integer offset,
-                                                @RequestParam(value = "limit", defaultValue = "${pagination.limit}") Integer limit) {
-        List<ConsultarVeiculoOutputAdapter> listOutput = veiculoConsultar.execute(offset, limit);
-        return mapper.mapOut(listOutput);
+    @ApiOperation(value = "Consulta todos os veiculos")
+    public List<VeiculoResource> consultarTodos(@RequestParam(value = "page", defaultValue = "${pagination.page}") Integer page,
+                                                @RequestParam(value = "size", defaultValue = "${pagination.size}") Integer size) {
+        List<ConsultarVeiculoOutputAdapter> listOutput = veiculoConsultar.execute(page, size);
+        return INSTANCE.mapOut(listOutput);
     }
 
     @GetMapping("/lote/{lote}")
     public List<VeiculoResource> consultarPorLote(@PathVariable("lote") String lote) {
         ConsultarVeiculoPorLoteInputPort inputPort = new ConsultarVeiculoPorLoteInputAdapter(lote);
         List<ConsultarVeiculoOutputAdapter> output = veiculoConsultarPorLote.execute(inputPort);
-        return mapper.mapOut(output);
+        return INSTANCE.mapOut(output);
     }
 
     @GetMapping("/modelo")
     public List<VeiculoResource> consultarPorIniciaisModelo(@RequestParam("q") String q,
-                                                            @RequestParam(value = "offset", defaultValue = "${pagination.offset}") Integer offset,
-                                                            @RequestParam(value = "limit", defaultValue = "${pagination.limit}") Integer limit                                                            ) {
-        ConsultarVeiculoPorModeloInputPort inputPort = new ConsultarVeiculoPorModeloInputAdapter(q, offset, limit);
+                                                            @RequestParam(value = "page", defaultValue = "${pagination.page}") Integer page,
+                                                            @RequestParam(value = "size", defaultValue = "${pagination.size}") Integer size) {
+        ConsultarVeiculoPorModeloInputPort inputPort = new ConsultarVeiculoPorModeloInputAdapter(q, page, size);
         List<ConsultarVeiculoOutputAdapter> output = veiculoConsultarPorModelo.execute(inputPort);
-        return mapper.mapOut(output);
+        return INSTANCE.mapOut(output);
     }
 
     @GetMapping("/fabricacao/{fabricacao}/modelo/{modelo}")
     public List<VeiculoResource> consultarPorAnoFabriacaoModelo(@PathVariable("fabricacao") Integer fabricacao,
                                                                 @PathVariable("modelo") Integer modelo,
-                                                                @RequestParam(value = "offset", defaultValue = "${pagination.offset}") Integer offset,
-                                                                @RequestParam(value = "limit", defaultValue = "${pagination.limit}") Integer limit) {
+                                                                @RequestParam(value = "page", defaultValue = "${pagination.page}") Integer page,
+                                                                @RequestParam(value = "size", defaultValue = "${pagination.size}") Integer size) {
         ConsultarVeiculoPorAnoFabricacaoAnoModeloInputPort inputPort =
-                new ConsultarVeiculoPorAnoFabricacaoAnoModeloInputAdapter(fabricacao, modelo, offset, limit);
+                new ConsultarVeiculoPorAnoFabricacaoAnoModeloInputAdapter(fabricacao, modelo, page, size);
         List<ConsultarVeiculoOutputAdapter> output = veiculoConsultarPorAnoFabricacaoAnoModelo.execute(inputPort);
-        return mapper.mapOut(output);
+        return INSTANCE.mapOut(output);
     }
 
     @GetMapping("/anoFabricacao")
     public List<VeiculoResource> consultarPorAnoFabriacaoEntre(@RequestParam("inicio") Integer inicio,
                                                                @RequestParam("fim") Integer fim,
-                                                               @RequestParam(value = "offset", defaultValue = "${pagination.offset}") Integer offset,
-                                                               @RequestParam(value = "limit", defaultValue = "${pagination.limit}") Integer limit) {
+                                                               @RequestParam(value = "page", defaultValue = "${pagination.page}") Integer page,
+                                                               @RequestParam(value = "size", defaultValue = "${pagination.size}") Integer size) {
         ConsultarVeiculoPorAnoFabricacaoInputPort inputPort =
-                new ConsultarVeiculoPorAnoFabricacaoInputAdapter(inicio, fim, offset, limit);
+                new ConsultarVeiculoPorAnoFabricacaoInputAdapter(inicio, fim, page, size);
         List<ConsultarVeiculoOutputAdapter> output = veiculoConsultarPorAnoFabricacao.execute(inputPort);
-        return mapper.mapOut(output);
+        return INSTANCE.mapOut(output);
     }
 
     @GetMapping("/marca/{marca}")
     public List<VeiculoResource> consultarPorMarca(@PathVariable("marca") String marca) {
         ConsultarVeiculoPorMarcaInputPort inputPort = new ConsultarVeiculoPorMarcaInputAdapter(marca);
         List<ConsultarVeiculoOutputAdapter> output = veiculoConsultarPorMarca.execute(inputPort);
-        return mapper.mapOut(output);
+        return INSTANCE.mapOut(output);
     }
 
     @GetMapping("/{id}")
     public VeiculoResource consultarPorId(@PathVariable Long id) {
         ConsultarVeiculoPorIdInputPort inputPort = new ConsultarVeiculoPorIdInputAdapter(id);
         ConsultarVeiculoPorIdOutputPort outputPort = veiculoConsultarPorId.execute(inputPort);
-        return mapper.mapOut(outputPort);
+        return INSTANCE.mapOut(outputPort);
     }
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public VeiculoResourceID criar(@Valid @RequestBody VeiculoResource veiculoResource) {
-        CriarVeiculoInputAdapter inputAdapter = mapper.mapInputCriar(veiculoResource);
+        CriarVeiculoInputAdapter inputAdapter = INSTANCE.mapInputCriar(veiculoResource);
         CriarVeiculoOutputPort outputPort = veiculoCriar.execute(inputAdapter);
-        return mapper.mapOut(outputPort);
+        return INSTANCE.mapOut(outputPort);
     }
 
     @PutMapping("/{id}")
     public VeiculoResource atualizar(@NotEmpty(message = "Id Obrigatorio") @PathVariable String id,
                                   @RequestBody VeiculoResource veiculoResource) {
-        AlterarVeiculoInputAdapter inputAdapter = mapper.mapInputAlterar(veiculoResource);
+        AlterarVeiculoInputAdapter inputAdapter = INSTANCE.mapInputAlterar(veiculoResource);
         AlterarVeiculoOutputPort outputPort = veiculoAlterar.execute(inputAdapter, id);
-        return mapper.mapOutAlterar(outputPort);
+        return INSTANCE.mapOutAlterar(outputPort);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void excluir(@NotNull(message = "Id Obrigatorio") @PathVariable Long id) {
         ExcluirVeiculoInputPort inputPort = new ExcluirVeiculoInputAdapter(id);
-        ExcluirVeiculoInputAdapter inputAdapter = mapper.mapInputExcluir(inputPort);
+        ExcluirVeiculoInputAdapter inputAdapter = INSTANCE.mapInputExcluir(inputPort);
         veiculoExcluir.execute(inputAdapter);
     }
 

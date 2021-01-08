@@ -14,7 +14,7 @@ public class ConsultarVeiculoPorAnoFabricacaoAnoModeloInputAdapter implements Co
 
     private Integer anoFabricacao;
     private Integer anoModelo;
-    private Integer offset;
-    private Integer limit;
+    private Integer page;
+    private Integer size;
 
 }

@@ -34,11 +34,11 @@ public class Veiculo {
         }
     }
 
-    public static List<Veiculo> paginaSubLista(List<Veiculo> veiculos, Integer offset, Integer limit) {
-        if (veiculos.size() - offset >= limit) {
-            return veiculos.subList(offset*limit, (offset+1) * limit);
+    public static List<Veiculo> paginaSubLista(List<Veiculo> veiculos, Integer page, Integer size) {
+        if (veiculos.size() - page >= size) {
+            return veiculos.subList(page*size, (page+1) * size);
         }
-        return veiculos.subList(offset, veiculos.size());
+        return veiculos.subList(page, veiculos.size());
     }
 
 }

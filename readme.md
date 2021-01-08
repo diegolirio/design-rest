@@ -63,7 +63,7 @@ curl --request DELETE \
 
 ```shell
 curl --request GET \
-  --url http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos?limit=10&offset=0
+  --url http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos?size=10&page=0
 ```
 ---
 5. Consulta de veículos por ID
@@ -88,7 +88,7 @@ curl --request GET \
 8. Consulta de veículos pelas letras iniciais do modelo
 ```shell
 curl --request GET \
-  --url 'http://localhost:8080/v1/veiculos/modelo?q=C3&limit=3&offset=0'
+  --url 'http://localhost:8080/v1/veiculos/modelo?q=C3&size=3&page=0'
 ```
 ---
 9. Consulta de veículos pelo ano de fabricação e pelo ano do modelo (campos combinados) (*). Ex: veículos com ano de fabricação em 2015 e ano modelo 
@@ -104,21 +104,21 @@ curl --request GET \
 ```
 ---
 
-### Design do Codigo
+### Design do Código
 
-> O Design do codigo foi construindo pensando em arquitetura hexagonal e seguindo algumas tecnicas do DDD como 
-> Bundle-Context, linguagem unica seguindo o enunciado do teste e os principios solid.
+> O Design do código foi construindo com base na arquitetura hexagonal e seguindo algumas técnicas do 
+> DDD como Bundle-Context, linguagem única seguindo o enunciado do teste e os principios SOLID.
    
-> O intuito do design de codigo eh poder isolar as funcionalidades para que alteracoes futuras 
-> nao afetam umas as outras e ganhar agilidade em novas features. Entao sendo assim o comeco do 
-> desenvolvimento eh mais demorado mas com tempo em aplicacoes com dominio rico que possuem uma 
-> evolucao constante o tempo eh convertido a nosso favor. 
+> O intuito do design de código é poder isolar as funcionalidades para que alterações futuras 
+> não afetam umas as outras e obter agilidade em novas features. Então sendo assim o começo do 
+> desenvolvimento é mais demorado mas com tempo em aplicações com domínio rico que possuem uma 
+> evolução constante o tempo é convertido a nosso favor. 
 
 ![image](https://user-images.githubusercontent.com/3913593/103909277-44152700-50e2-11eb-986f-0110faa315fc.png)
  
-> Para aplicacoes CRUD ou que ainda nao esta claro as regras e o conhecimento avancado 
-> desse dominio, constuiria uma aplicacao com um design mais simples 
-> como controller -> service -> repository. Acredito que isso deve estar sempre aberto para discussoes. 
+> Para aplicações CRUD ou que ainda não está claro as regras e o conhecimento avançado 
+> desse dominio, devemos seguir com um design mais simples para desenvolver uma aplicacao,
+> como controller -> service -> repository. Acredito que isso deve estar sempre aberto para discussões. 
 
 ### Pipeline
 

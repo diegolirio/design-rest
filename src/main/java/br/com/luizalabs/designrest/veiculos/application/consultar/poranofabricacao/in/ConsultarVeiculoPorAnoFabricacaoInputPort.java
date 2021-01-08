@@ -4,7 +4,7 @@ public interface ConsultarVeiculoPorAnoFabricacaoInputPort {
 
     Integer getAnoInicio();
     Integer getAnoFim();
-    Integer getOffset();
-    Integer getLimit();
+    Integer getPage();
+    Integer getSize();
 
 }
