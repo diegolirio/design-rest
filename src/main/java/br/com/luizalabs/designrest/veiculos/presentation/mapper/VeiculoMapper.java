@@ -43,7 +43,9 @@ public interface VeiculoMapper {
     default void addLinks(@MappingTarget VeiculoOutputResource veiculoResource, ConsultarVeiculoPorIdOutputPort adapter) {
         veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarPorId(adapter.getId())).withRel("Self") );
         veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(0, 10)).withRel("firstPage") );
-        veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(adapter.getLastPage(), 10)).withRel("lastPage") );
+        if(adapter.getLastPage() > 0) {
+            veiculoResource.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(adapter.getLastPage(), 10)).withRel("lastPage"));
+        }
     }
 
     @AfterMapping

@@ -23,7 +23,7 @@ public class VeiculoConsultarPorMarcaImpl implements VeiculoConsultarPorMarca {
     @Override
     public List<ConsultarVeiculoOutputAdapter> execute(ConsultarVeiculoPorMarcaInputPort inputPort) throws NotFoundException {
         List<Veiculo> veiculos = this.gateway.consultar();
-        List<Veiculo> veiculosFilter = veiculos.stream().filter(v -> v.getMarca().equals(inputPort.getMarca())).collect(Collectors.toList());
+        List<Veiculo> veiculosFilter = veiculos.stream().filter(v -> v.getMarca().equalsIgnoreCase(inputPort.getMarca())).collect(Collectors.toList());
         if(veiculosFilter.size() <= 0) {
             throw new NotFoundException(String.format("Veiculos com a marca %s nao encontrado", inputPort.getMarca()));
         }
