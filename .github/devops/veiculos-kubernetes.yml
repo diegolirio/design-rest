@@ -9,7 +9,7 @@ items:
         expose: "true"
         app: design-rest
         provider: fabric8
-        version: 0.0.11-SNAPSHOT
+        version: 0.0.12-SNAPSHOT
         group: br.com.luizalabs.designrest
       name: design-rest
     spec:
@@ -29,7 +29,7 @@ items:
       labels:
         app: design-rest
         provider: fabric8
-        version: 0.0.11-SNAPSHOT
+        version: 0.0.12-SNAPSHOT
         group: br.com.luizalabs.designrest
       name: design-rest
     spec:
@@ -44,7 +44,7 @@ items:
           labels:
             app: design-rest
             provider: fabric8
-            version: 0.0.11-SNAPSHOT
+            version: 0.0.12-SNAPSHOT
             group: br.com.luizalabs.designrest
           annotations:
             prometheus.io/scrape: 'true'
@@ -61,7 +61,7 @@ items:
                   value: develop
                 #- name: SERVICES_VEICULO_LEGADO_URL
                 #  value: https://dev.apiluiza.com.br/legado/veiculo
-              image: diegolirio/design-rest:0.0.11-SNAPSHOT
+              image: diegolirio/design-rest:0.0.12-SNAPSHOT
               imagePullPolicy: Always
               name: design-rest
               securityContext:

@@ -104,7 +104,7 @@ public class VeiculoController {
     }
 
     @GetMapping("/marca/{marca}")
-    public List<VeiculoOutputResource> consultarPorMarca(@PathVariable("marca") String marca) {
+    public List<VeiculoOutputResource> consultarPorMarca(@PathVariable("marca") String marca) throws NotFoundException {
         ConsultarVeiculoPorMarcaInputPort inputPort = new ConsultarVeiculoPorMarcaInputAdapter(marca);
         List<ConsultarVeiculoOutputAdapter> output = veiculoConsultarPorMarca.execute(inputPort);
         return INSTANCE.mapOut(output);
