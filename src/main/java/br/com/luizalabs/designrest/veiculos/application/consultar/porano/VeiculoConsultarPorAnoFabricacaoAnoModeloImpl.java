@@ -29,6 +29,6 @@ public class VeiculoConsultarPorAnoFabricacaoAnoModeloImpl implements VeiculoCon
                                 v.getAnoFabricacao().equals(inputPort.getAnoFabricacao()) &&
                                 v.getAnoModelo().equals(inputPort.getAnoModelo()))
                         .collect(Collectors.toList());
-        return mapper.mapOutput(Veiculo.paginaSubLista(veiculosFilter, inputPort.getOffset(), inputPort.getLimit()));
+        return mapper.mapOutput(Veiculo.paginaSubLista(veiculosFilter, inputPort.getPage(), inputPort.getSize()));
     }
 }

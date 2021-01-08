@@ -3,6 +3,6 @@ package br.com.luizalabs.designrest.veiculos.application.consultar.pormodelo.in;
 public interface ConsultarVeiculoPorModeloInputPort {
 
     String getModelo();
-    Integer getOffset();
-    Integer getLimit();
+    Integer getPage();
+    Integer getSize();
 }

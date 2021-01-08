@@ -2,8 +2,6 @@ spring:
   profiles: default, develop
   application:
     name: design-rest
-  hateoas:
-    use-hal-as-default-json-media-type: false
 
 services:
   veiculo:

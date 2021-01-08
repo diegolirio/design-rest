@@ -63,7 +63,7 @@ curl --request DELETE \
 
 ```shell
 curl --request GET \
-  --url http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos?limit=10&offset=0
+  --url http://ec2-3-218-141-213.compute-1.amazonaws.com:8085/v1/veiculos?size=10&page=0
 ```
 ---
 5. Consulta de veículos por ID
@@ -88,7 +88,7 @@ curl --request GET \
 8. Consulta de veículos pelas letras iniciais do modelo
 ```shell
 curl --request GET \
-  --url 'http://localhost:8080/v1/veiculos/modelo?q=C3&limit=3&offset=0'
+  --url 'http://localhost:8080/v1/veiculos/modelo?q=C3&size=3&page=0'
 ```
 ---
 9. Consulta de veículos pelo ano de fabricação e pelo ano do modelo (campos combinados) (*). Ex: veículos com ano de fabricação em 2015 e ano modelo 
