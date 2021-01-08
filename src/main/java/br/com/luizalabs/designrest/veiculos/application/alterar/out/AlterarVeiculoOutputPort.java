@@ -24,4 +24,6 @@ public interface AlterarVeiculoOutputPort {
 
     String getUsuarioLance();
 
+    int getLastPage();
+
 }

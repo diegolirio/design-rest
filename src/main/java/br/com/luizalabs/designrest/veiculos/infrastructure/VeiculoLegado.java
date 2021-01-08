@@ -1,5 +1,6 @@
 package br.com.luizalabs.designrest.veiculos.infrastructure;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -43,4 +44,7 @@ public class VeiculoLegado {
 
     @JsonProperty("USUARIOLANCE")
     private String usuarioLance;
+
+    @JsonIgnoreProperties
+    private int lastPage;
 }

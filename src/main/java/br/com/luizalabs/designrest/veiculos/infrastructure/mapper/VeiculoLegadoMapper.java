@@ -35,6 +35,7 @@ public abstract class VeiculoLegadoMapper {
         veiculo.setModelo(veiculoLegado.getModelo());
         veiculo.setValorLance(veiculoLegado.getValorLance());
         veiculo.setUsuarioLance(veiculoLegado.getUsuarioLance());
+        veiculo.setLastPage(veiculoLegado.getLastPage());
         return veiculo;
     }
 

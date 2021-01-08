@@ -22,4 +22,5 @@ public class AlterarVeiculoOutputAdapter implements AlterarVeiculoOutputPort {
     private Integer anoModelo;
     private Double valorLance;
     private String usuarioLance;
+    private int lastPage;
 }

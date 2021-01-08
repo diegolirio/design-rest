@@ -22,9 +22,7 @@ public class VeiculoConsultarImpl implements VeiculoConsultar {
     public List<ConsultarVeiculoOutputAdapter> execute(Integer page, Integer size) {
         List<Veiculo> veiculos = this.gateway.consultar();
         List<Veiculo> veiculosSubList = Veiculo.paginaSubLista(veiculos, page, size);
-        int total = veiculos.size();
-        int firstPage = 0;
-        int lastPage = veiculos.size() / size;
+        veiculosSubList.forEach(x->x.setLastPage(veiculos.size() / size));
         return mapper.mapOutput(veiculosSubList);
     }
 }

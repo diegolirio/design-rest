@@ -15,4 +15,6 @@ public interface VeiculoGateway {
     List<Veiculo> consultar();
 
     Veiculo consultarPorId(Long id);
+
+    int count();
 }

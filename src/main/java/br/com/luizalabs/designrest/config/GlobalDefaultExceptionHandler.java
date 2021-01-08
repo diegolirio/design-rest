@@ -68,7 +68,7 @@ public class GlobalDefaultExceptionHandler {
     @ExceptionHandler(value = {NoSuchElementException.class, NotFoundException.class})
     public Map<String, String> handle404Exceptions(Exception ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put(MESSAGE, "Veiculo Não Encontrado");
+        errors.put(MESSAGE, ex.getMessage());
         errors.put(TYPE, TYPE_WARNING);
         log.warn(ex.getMessage());
         return errors;

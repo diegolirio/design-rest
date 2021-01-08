@@ -58,6 +58,15 @@ public class VeiculoGatewayImpl implements VeiculoGateway {
     }
 
     @Override
+    public int count() {
+        VeiculoLegadoRequest veiculoLegadoRequest =
+                VeiculoLegadoRequest.builder()
+                        .operacao(CONSULTAR)
+                        .build();
+        return this.veiculoClient.postVeiculoListAll(veiculoLegadoRequest).size();
+    }
+
+    @Override
     public Veiculo consultarPorId(Long id) {
         VeiculoLegadoRequest veiculoLegadoRequest =
                 VeiculoLegadoRequest.builder()
@@ -68,6 +77,7 @@ public class VeiculoGatewayImpl implements VeiculoGateway {
                 veiculoLegados.stream()
                               .filter(v -> v.getId() != null && v.getId().equals(id))
                               .findFirst().get();
+        veiculoLegado.setLastPage(veiculoLegados.size());
         return VeiculoLegadoMapper.mapper.mapDomain(veiculoLegado);
     }
 }

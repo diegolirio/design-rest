@@ -24,4 +24,5 @@ public interface ConsultarVeiculoPorIdOutputPort {
 
     String getUsuarioLance();
 
+    Integer getLastPage();
 }
