@@ -2,6 +2,7 @@ package br.com.luizalabs.designrest.veiculos.application.excluir;
 
 import br.com.luizalabs.designrest.veiculos.application.excluir.in.ExcluirVeiculoInputPort;
 import br.com.luizalabs.designrest.veiculos.domain.VeiculoGateway;
+import br.com.luizalabs.designrest.veiculos.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,7 +15,7 @@ public class VeiculoExcluirImpl implements VeiculoExcluir {
     }
 
     @Override
-    public void execute(ExcluirVeiculoInputPort excluirVeiculoInputPort) {
+    public void execute(ExcluirVeiculoInputPort excluirVeiculoInputPort) throws NotFoundException {
         gateway.excluir(excluirVeiculoInputPort.getId());
     }
 }

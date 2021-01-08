@@ -42,24 +42,28 @@ public interface VeiculoMapper {
     @AfterMapping
     default void addLinks(@MappingTarget VeiculoOutputResource veiculoResource, ConsultarVeiculoPorIdOutputPort adapter) {
         veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarPorId(adapter.getId())).withRel("Self") );
-        veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(0, 10)).withRel("list") );
+        veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(0, 10)).withRel("firstPage") );
+        veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(adapter.getLastPage(), 10)).withRel("lastPage") );
     }
 
     @AfterMapping
     default void addLinks(@MappingTarget VeiculoOutputResource veiculoResource, ConsultarVeiculoOutputAdapter adapter) {
-        veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarPorId(adapter.getId())).withRel("Self") );
-        veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(0, 10)).withRel("list") );
+        veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarPorId(adapter.getId())).withRel("firstPage") );
+        veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(0, 10)).withRel("pageFirst") );
+        veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(adapter.getLastPage(), 10)).withRel("lastPage") );
     }
 
     @AfterMapping
     default void addLinks(@MappingTarget VeiculoResourceID veiculoResourceID, CriarVeiculoOutputPort adapter) {
-        veiculoResourceID.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarPorId(adapter.getId())).withRel("Self") );
-        veiculoResourceID.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(0, 10)).withRel("list") );
+        veiculoResourceID.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarPorId(adapter.getId())).withRel("firstPage") );
+        veiculoResourceID.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(0, 10)).withRel("pageFirst") );
+        veiculoResourceID.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(adapter.getLastPage(), 10)).withRel("lastPage") );
     }
 
     @AfterMapping
     default void addLinks(@MappingTarget VeiculoOutputResource veiculoResource, AlterarVeiculoOutputPort adapter) {
         veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarPorId(adapter.getId())).withRel("Self") );
-        veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(0, 10)).withRel("list") );
+        veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(0, 10)).withRel("firstPage") );
+        veiculoResource.add( WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(VeiculoController.class).consultarTodos(adapter.getLastPage(), 10)).withRel("lastPage") );
     }
 }

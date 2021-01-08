@@ -9,4 +9,5 @@ import lombok.Setter;
 public class CriarVeiculoOutputAdapter implements CriarVeiculoOutputPort {
 
     private Long id;
+    private int lastPage;
 }

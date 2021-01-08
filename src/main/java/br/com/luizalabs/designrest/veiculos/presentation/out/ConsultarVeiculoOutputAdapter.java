@@ -31,6 +31,5 @@ public class ConsultarVeiculoOutputAdapter implements ConsultarVeiculoOutputPort
     private String usuarioLance;
 
     private Integer total;
-    private Integer firstPage;
     private Integer lastPage;
 }

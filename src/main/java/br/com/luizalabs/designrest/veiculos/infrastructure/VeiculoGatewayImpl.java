@@ -2,6 +2,7 @@ package br.com.luizalabs.designrest.veiculos.infrastructure;
 
 import br.com.luizalabs.designrest.veiculos.domain.Veiculo;
 import br.com.luizalabs.designrest.veiculos.domain.VeiculoGateway;
+import br.com.luizalabs.designrest.veiculos.exceptions.NotFoundException;
 import br.com.luizalabs.designrest.veiculos.infrastructure.client.VeiculoClient;
 import br.com.luizalabs.designrest.veiculos.infrastructure.mapper.VeiculoLegadoMapper;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ public class VeiculoGatewayImpl implements VeiculoGateway {
     private final VeiculoClient veiculoClient;
 
     @Override
-    public Veiculo criar(Veiculo veiculo) {
+    public Veiculo criar(Veiculo veiculo) throws NotFoundException {
         VeiculoLegadoRequest veiculoLegadoRequest = VeiculoLegadoMapper.mapper.map(veiculo);
         veiculoLegadoRequest.setOperacao(CRIAR);
         VeiculoLegado veiculoLegado = this.veiculoClient.postVeiculo(veiculoLegadoRequest);
@@ -29,7 +30,7 @@ public class VeiculoGatewayImpl implements VeiculoGateway {
     }
 
     @Override
-    public Veiculo alterar(Veiculo veiculo) {
+    public Veiculo alterar(Veiculo veiculo) throws NotFoundException {
         VeiculoLegadoRequest veiculoLegadoRequest = VeiculoLegadoMapper.mapper.map(veiculo);
         veiculoLegadoRequest.setOperacao(ALTERAR);
         VeiculoLegado veiculoLegado = this.veiculoClient.postVeiculo(veiculoLegadoRequest);
@@ -37,7 +38,7 @@ public class VeiculoGatewayImpl implements VeiculoGateway {
     }
 
     @Override
-    public void excluir(Long id) {
+    public void excluir(Long id) throws NotFoundException {
         VeiculoLegadoRequest veiculoLegadoRequest =
                 VeiculoLegadoRequest.builder()
                                     .operacao(EXCLUIR)
@@ -57,6 +58,15 @@ public class VeiculoGatewayImpl implements VeiculoGateway {
     }
 
     @Override
+    public int count() {
+        VeiculoLegadoRequest veiculoLegadoRequest =
+                VeiculoLegadoRequest.builder()
+                        .operacao(CONSULTAR)
+                        .build();
+        return this.veiculoClient.postVeiculoListAll(veiculoLegadoRequest).size();
+    }
+
+    @Override
     public Veiculo consultarPorId(Long id) {
         VeiculoLegadoRequest veiculoLegadoRequest =
                 VeiculoLegadoRequest.builder()
@@ -67,6 +77,7 @@ public class VeiculoGatewayImpl implements VeiculoGateway {
                 veiculoLegados.stream()
                               .filter(v -> v.getId() != null && v.getId().equals(id))
                               .findFirst().get();
+        veiculoLegado.setLastPage(veiculoLegados.size());
         return VeiculoLegadoMapper.mapper.mapDomain(veiculoLegado);
     }
 }

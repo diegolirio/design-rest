@@ -20,6 +20,7 @@ import br.com.luizalabs.designrest.veiculos.application.criar.VeiculoCriar;
 import br.com.luizalabs.designrest.veiculos.application.criar.out.CriarVeiculoOutputPort;
 import br.com.luizalabs.designrest.veiculos.application.excluir.VeiculoExcluir;
 import br.com.luizalabs.designrest.veiculos.application.excluir.in.ExcluirVeiculoInputPort;
+import br.com.luizalabs.designrest.veiculos.exceptions.NotFoundException;
 import br.com.luizalabs.designrest.veiculos.presentation.in.*;
 import br.com.luizalabs.designrest.veiculos.presentation.out.ConsultarVeiculoOutputAdapter;
 import br.com.luizalabs.designrest.veiculos.presentation.resources.VeiculoInputResource;
@@ -126,7 +127,7 @@ public class VeiculoController {
 
     @PutMapping("/{id}")
     public VeiculoOutputResource atualizar(@NotEmpty(message = "Id Obrigatorio") @PathVariable String id,
-                                           @RequestBody VeiculoInputResource veiculoResource) {
+                                           @RequestBody VeiculoInputResource veiculoResource) throws NotFoundException {
         AlterarVeiculoInputAdapter inputAdapter = INSTANCE.mapInputAlterar(veiculoResource);
         AlterarVeiculoOutputPort outputPort = veiculoAlterar.execute(inputAdapter, id);
         return INSTANCE.mapOutAlterar(outputPort);
@@ -134,7 +135,7 @@ public class VeiculoController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void excluir(@NotNull(message = "Id Obrigatorio") @PathVariable Long id) {
+    public void excluir(@NotNull(message = "Id Obrigatorio") @PathVariable Long id) throws NotFoundException {
         ExcluirVeiculoInputPort inputPort = new ExcluirVeiculoInputAdapter(id);
         ExcluirVeiculoInputAdapter inputAdapter = INSTANCE.mapInputExcluir(inputPort);
         veiculoExcluir.execute(inputAdapter);
