@@ -2,6 +2,7 @@ package br.com.luizalabs.designrest.veiculos.infrastructure;
 
 import br.com.luizalabs.designrest.veiculos.domain.Veiculo;
 import br.com.luizalabs.designrest.veiculos.domain.VeiculoGateway;
+import br.com.luizalabs.designrest.veiculos.infrastructure.client.VeiculoClient;
 import br.com.luizalabs.designrest.veiculos.infrastructure.mapper.VeiculoLegadoMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
