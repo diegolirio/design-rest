@@ -29,6 +29,7 @@ public class VeiculoConsultarPorAnoFabricacaoImpl implements VeiculoConsultarPor
                                 v.getAnoFabricacao().intValue() >= inputPort.getAnoInicio().intValue() &&
                                 v.getAnoFabricacao().intValue() <= inputPort.getAnoFim().intValue())
                         .collect(Collectors.toList());
+        veiculosFilter.forEach(x->x.setLastPage(veiculosFilter.size() / inputPort.getSize()));
         return mapper.mapOutput(Veiculo.paginaSubLista(veiculosFilter, inputPort.getPage(), inputPort.getSize()));
     }
 }
