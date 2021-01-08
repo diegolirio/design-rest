@@ -1,7 +1,8 @@
 package br.com.luizalabs.designrest.veiculos.presentation;
 
 import br.com.luizalabs.designrest.DesignRestApplication;
-import br.com.luizalabs.designrest.veiculos.presentation.resources.VeiculoResource;
+import br.com.luizalabs.designrest.veiculos.presentation.resources.VeiculoInputResource;
+import br.com.luizalabs.designrest.veiculos.presentation.resources.VeiculoOutputResource;
 import br.com.luizalabs.designrest.veiculos.template.VeiculoFixtureTemplate;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
@@ -62,9 +63,7 @@ public class VeiculoControllerIntegrationTests {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$.links[0].href", notNullValue()))
                 .andExpect(jsonPath("$[0].lote", is(lote)))
-                .andExpect(jsonPath("$.links[0].href", notNullValue()))
                 .andExpect(jsonPath("$[1].lote", is(lote)));
     }
 
@@ -130,13 +129,13 @@ public class VeiculoControllerIntegrationTests {
         mvc.perform(get(VeiculoController.VEICULOS_PREFIX_URL+path)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", equalTo(id)));
+                .andExpect(jsonPath("$.links[0].href", CoreMatchers.containsString(id.toString())));
     }
 
     @Test
     public void criarTest() throws Exception {
         String json = new ObjectMapper().writeValueAsString(
-                Fixture.from(VeiculoResource.class).gimme(VeiculoFixtureTemplate.LABEL_VEICULO_SEM_ID));
+                Fixture.from(VeiculoInputResource.class).gimme(VeiculoFixtureTemplate.LABEL_VEICULO_IN_SEM_ID));
 
         mvc.perform(post(VeiculoController.VEICULOS_PREFIX_URL)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -153,7 +152,7 @@ public class VeiculoControllerIntegrationTests {
         String path = String.format("/%s", id);
 
         String json = new ObjectMapper().writeValueAsString(
-                Fixture.from(VeiculoResource.class).gimme(VeiculoFixtureTemplate.LABEL_VEICULO_SEM_ID));
+                Fixture.from(VeiculoInputResource.class).gimme(VeiculoFixtureTemplate.LABEL_VEICULO_IN_SEM_ID));
 
         mvc.perform(put(VeiculoController.VEICULOS_PREFIX_URL+path)
                 .contentType(MediaType.APPLICATION_JSON)
