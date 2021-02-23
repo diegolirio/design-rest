@@ -3,6 +3,10 @@ package br.com.luizalabs.designrest;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -11,6 +15,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
 
+@RequestMapping
+@RestController
+@EnableScheduling
 @SpringBootApplication
 public class DesignRestApplication implements CommandLineRunner {
 
@@ -22,9 +29,28 @@ public class DesignRestApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+//
+//        String file = "static/teste.csv";
+//
+//        extracted(file);
+//
+//        InputStream is = getClass().getClassLoader().getResourceAsStream(file);
+//        //InputStream is2 = JavaClassName.class.getClassLoader().getResourceAsStream(file);
+//        System.out.print("2 => ");
+//        System.out.println(is);
+//
+//        System.out.print("3 => ");
+//        DesignRestApplication app = new DesignRestApplication();
+//        System.out.println("getResourceAsStream : " + file);
+//        InputStream is2 = app.getFileFromResourceAsStream(file);
+//        printInputStream(is2);
+//        System.out.println("\ngetResource : " + file);
 
-        String file = "teste.csv";
+//        File file2 = app.getFileFromResource(file);
+//        printFile(file2);
+    }
 
+    private void extracted(String file) throws URISyntaxException {
         URL resource = getClass().getClassLoader().getResource(file);
         if (resource == null) {
             throw new IllegalArgumentException("file not found!");
@@ -33,21 +59,6 @@ public class DesignRestApplication implements CommandLineRunner {
             System.out.print("1 => ");
             System.out.println(f);
         }
-
-        InputStream is = getClass().getClassLoader().getResourceAsStream(file);
-        //InputStream is2 = JavaClassName.class.getClassLoader().getResourceAsStream(file);
-        System.out.print("2 => ");
-        System.out.println(is);
-
-
-        System.out.print("3 => ");
-        DesignRestApplication app = new DesignRestApplication();
-        System.out.println("getResourceAsStream : " + file);
-        InputStream is2 = app.getFileFromResourceAsStream(file);
-        printInputStream(is2);
-        System.out.println("\ngetResource : " + file);
-        File file2 = app.getFileFromResource(file);
-        printFile(file2);
     }
 
     private InputStream getFileFromResourceAsStream(String fileName) {
@@ -104,5 +115,19 @@ public class DesignRestApplication implements CommandLineRunner {
         firstname;lastname
         diego;lirio
      */
+
+    @GetMapping("/ok")
+    public String ok() {
+        String file = "teste.csv";
+        URL resource = getClass().getClassLoader().getResource(file);
+        if (resource == null) {
+            throw new IllegalArgumentException("file not found!");
+        } else {
+            File f = new File(resource.getPath());
+            System.out.print("1 => ");
+            System.out.println(f);
+        }
+        return "OK";
+    }
 
 }
